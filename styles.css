@@ -1,0 +1,71 @@
+:root {
+  --bg: #0B0F14;
+  --surface: #0F1623;
+  --text: #EAF0FF;
+  --muted: #A9B4CC;
+  --border: #1C2433;
+  --accent: #7C5CFF;
+  --accent-strong: #6B4CFF;
+  --accent2: #22D3EE;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+}
+
+.bg-grid {
+  background-image:
+    linear-gradient(to right, rgba(255, 255, 255, .04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, .04) 1px, transparent 1px);
+  background-size: 48px 48px;
+}
+
+.hero {
+  background: radial-gradient(
+    1200px 600px at 80% -20%,
+    rgba(124, 92, 255, .15),
+    transparent 60%
+  );
+}
+
+.btn-primary {
+  background: var(--accent);
+  color: #0B0F14;
+  padding: 16px 28px;
+  border-radius: 12px;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: all .2s ease;
+}
+
+.btn-primary:hover {
+  background: var(--accent-strong);
+  transform: translateY(-2px);
+}
+
+/* CTA в hero — единственный яркий элемент на первом экране */
+.hero .btn-primary {
+  background: var(--accent);
+  color: #0B0F14;
+}
+.hero .btn-primary:hover {
+  background: var(--accent-strong);
+  transform: translateY(-2px);
+}
+
+.card {
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, .04),
+    rgba(255, 255, 255, .02)
+  );
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 20px;
+}
+
+/* Воздух между двумя карточками в hero (upload + results) */
+.mock-ui-container .card + .card { margin-top: 16px; }

@@ -1,0 +1,855 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seen it on TikTok? Find similar in seconds.</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #000;
+            --secondary: #fff;
+            --accent: #ff0066;
+            --text: #1a1a1a;
+            --text-light: #666;
+            --border: #e0e0e0;
+            --bg-light: #fafafa;
+            --grid-color: rgba(0, 0, 0, 0.05);
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+            font-size: 16px;
+            line-height: 1.6;
+            color: var(--text);
+            background: var(--secondary);
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Grid system - subtly visible */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            position: relative;
+        }
+
+        .grid-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            pointer-events: none;
+            z-index: 1;
+            background-image: 
+                linear-gradient(to right, var(--grid-color) 1px, transparent 1px),
+                linear-gradient(to bottom, var(--grid-color) 1px, transparent 1px);
+            background-size: 40px 40px;
+            opacity: 0.3;
+        }
+
+        /* Typography */
+        h1 {
+            font-size: clamp(32px, 6vw, 64px);
+            font-weight: 700;
+            line-height: 1.1;
+            margin-bottom: 20px;
+            letter-spacing: -0.02em;
+        }
+
+        h2 {
+            font-size: clamp(24px, 4vw, 40px);
+            font-weight: 600;
+            line-height: 1.2;
+            margin-bottom: 16px;
+            letter-spacing: -0.01em;
+        }
+
+        h3 {
+            font-size: clamp(20px, 3vw, 28px);
+            font-weight: 600;
+            line-height: 1.3;
+            margin-bottom: 12px;
+        }
+
+        p {
+            margin-bottom: 16px;
+            font-size: 18px;
+            line-height: 1.7;
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 60px 20px 80px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+            margin-bottom: 40px;
+        }
+
+        .hero-text h1 {
+            margin-bottom: 24px;
+        }
+
+        .hero-subheadline {
+            font-size: 22px;
+            color: var(--text-light);
+            margin-bottom: 32px;
+            line-height: 1.5;
+        }
+
+        .cta-primary {
+            display: inline-block;
+            background: var(--primary);
+            color: var(--secondary);
+            padding: 18px 40px;
+            font-size: 18px;
+            font-weight: 600;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            margin-bottom: 12px;
+        }
+
+        .cta-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .cta-microcopy {
+            font-size: 14px;
+            color: var(--text-light);
+            display: block;
+        }
+
+        .trust-strip {
+            display: flex;
+            gap: 40px;
+            flex-wrap: wrap;
+            margin-top: 40px;
+            padding-top: 30px;
+            border-top: 1px solid var(--border);
+        }
+
+        .trust-item {
+            font-size: 14px;
+            color: var(--text-light);
+        }
+
+        .trust-item strong {
+            color: var(--text);
+            font-weight: 600;
+        }
+
+        /* Hero Visual Mock */
+        .hero-visual {
+            position: relative;
+        }
+
+        .mock-ui-container {
+            background: var(--bg-light);
+            border: 2px solid var(--border);
+            border-radius: 8px;
+            padding: 20px;
+            position: relative;
+        }
+
+        .mock-upload-area {
+            background: var(--secondary);
+            border: 2px dashed var(--border);
+            border-radius: 4px;
+            padding: 30px;
+            text-align: center;
+            margin-bottom: 20px;
+            min-height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .mock-upload-placeholder {
+            color: var(--text-light);
+            font-size: 14px;
+        }
+
+        .mock-results-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+        }
+
+        .mock-item-card {
+            background: var(--secondary);
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            padding: 12px;
+            aspect-ratio: 3/4;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .mock-item-image {
+            background: var(--bg-light);
+            border-radius: 2px;
+            flex: 1;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            color: var(--text-light);
+        }
+
+        .mock-item-info {
+            font-size: 11px;
+            color: var(--text);
+            line-height: 1.4;
+        }
+
+        .mock-item-price {
+            font-weight: 600;
+            margin-top: 4px;
+        }
+
+        /* How it works */
+        .how-it-works {
+            padding: 80px 20px;
+            background: var(--bg-light);
+            position: relative;
+            z-index: 2;
+        }
+
+        .steps-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+            margin-top: 50px;
+        }
+
+        .step-card {
+            background: var(--secondary);
+            border: 2px solid var(--border);
+            padding: 30px;
+            position: relative;
+        }
+
+        .step-number {
+            font-size: 48px;
+            font-weight: 700;
+            color: var(--accent);
+            margin-bottom: 16px;
+            line-height: 1;
+        }
+
+        .step-visual {
+            background: var(--bg-light);
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            height: 200px;
+            margin: 20px 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            color: var(--text-light);
+        }
+
+        .honesty-line {
+            margin-top: 50px;
+            padding: 20px;
+            background: var(--secondary);
+            border-left: 4px solid var(--accent);
+            font-size: 16px;
+            color: var(--text-light);
+        }
+
+        /* Comparison Section */
+        .comparison {
+            padding: 80px 20px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .comparison-table {
+            margin-top: 40px;
+            border: 2px solid var(--border);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .comparison-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .comparison-row:last-child {
+            border-bottom: none;
+        }
+
+        .comparison-cell {
+            padding: 20px;
+            border-right: 1px solid var(--border);
+        }
+
+        .comparison-row .comparison-cell:last-child {
+            border-right: none;
+        }
+
+        .comparison-header {
+            background: var(--primary);
+            color: var(--secondary);
+            font-weight: 600;
+        }
+
+        .comparison-cell.check {
+            text-align: center;
+            font-size: 24px;
+        }
+
+        .comparison-cell.cross {
+            text-align: center;
+            color: var(--text-light);
+            font-size: 24px;
+        }
+
+        /* Social Proof */
+        .social-proof {
+            padding: 80px 20px;
+            background: var(--bg-light);
+            position: relative;
+            z-index: 2;
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .testimonial-card {
+            background: var(--secondary);
+            border: 2px solid var(--border);
+            padding: 30px;
+        }
+
+        .testimonial-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--primary);
+            color: var(--secondary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 18px;
+            margin-bottom: 16px;
+        }
+
+        .testimonial-quote {
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 16px;
+            font-style: italic;
+        }
+
+        .testimonial-author {
+            font-size: 14px;
+            color: var(--text-light);
+        }
+
+        .testimonial-author strong {
+            color: var(--text);
+            font-weight: 600;
+        }
+
+        /* Objections */
+        .objections {
+            padding: 80px 20px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .objections-list {
+            margin-top: 40px;
+        }
+
+        .objection-item {
+            margin-bottom: 30px;
+            padding-bottom: 30px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .objection-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .objection-question {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+
+        .objection-answer {
+            font-size: 16px;
+            color: var(--text-light);
+            line-height: 1.7;
+        }
+
+        /* Upload Form */
+        .upload-form-section {
+            padding: 80px 20px;
+            background: var(--primary);
+            color: var(--secondary);
+            position: relative;
+            z-index: 2;
+        }
+
+        .upload-form-section h2 {
+            color: var(--secondary);
+        }
+
+        .form-container {
+            max-width: 600px;
+            margin: 40px auto 0;
+        }
+
+        .upload-box {
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px dashed rgba(255, 255, 255, 0.3);
+            border-radius: 8px;
+            padding: 60px 30px;
+            text-align: center;
+            margin-bottom: 30px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .upload-box:hover {
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .upload-icon {
+            font-size: 48px;
+            margin-bottom: 16px;
+        }
+
+        .upload-text {
+            font-size: 18px;
+            margin-bottom: 8px;
+        }
+
+        .upload-hint {
+            font-size: 14px;
+            opacity: 0.7;
+        }
+
+        .form-group {
+            margin-bottom: 24px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 16px;
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 16px;
+            font-size: 16px;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--secondary);
+            border-radius: 4px;
+        }
+
+        .form-group input::placeholder {
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .form-group select {
+            cursor: pointer;
+        }
+
+        .form-group select option {
+            background: var(--primary);
+            color: var(--secondary);
+        }
+
+        .form-submit {
+            width: 100%;
+            background: var(--secondary);
+            color: var(--primary);
+            padding: 18px;
+            font-size: 18px;
+            font-weight: 600;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .form-submit:hover {
+            transform: translateY(-2px);
+        }
+
+        .form-note {
+            margin-top: 16px;
+            font-size: 14px;
+            opacity: 0.8;
+            text-align: center;
+        }
+
+        /* Final CTA */
+        .final-cta {
+            padding: 100px 20px;
+            text-align: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .final-cta h2 {
+            font-size: clamp(36px, 5vw, 56px);
+            margin-bottom: 24px;
+        }
+
+        .final-cta p {
+            font-size: 20px;
+            color: var(--text-light);
+            margin-bottom: 40px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero-content {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .steps-grid,
+            .testimonials-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .comparison-row {
+                grid-template-columns: 1fr;
+            }
+
+            .comparison-cell {
+                border-right: none;
+                border-bottom: 1px solid var(--border);
+            }
+
+            .comparison-row .comparison-cell:last-child {
+                border-bottom: none;
+            }
+
+            .trust-strip {
+                flex-direction: column;
+                gap: 16px;
+            }
+
+            .mock-results-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
+</head>
+<body class="bg-grid">
+    <!-- Subtle grid overlay -->
+    <div class="grid-overlay"></div>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <h1>Find similar outfits in seconds, not hours</h1>
+                    <p class="hero-subheadline">Upload a TikTok screenshot. We'll find close matches and send links straight to your inbox.</p>
+                    <a href="#upload-form" class="cta-primary btn-primary">Upload photo & get matches</a>
+                    <span class="cta-microcopy">No signup required. We'll email your results.</span>
+                    
+                    <div class="trust-strip">
+                        <div class="trust-item">
+                            <strong>2,300+</strong> shoppers this month
+                        </div>
+                        <div class="trust-item">
+                            Average response: <strong>under 30 minutes</strong>
+                        </div>
+                        <div class="trust-item">
+                            <strong>UK brands</strong> & high street covered
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="hero-visual">
+                    <div class="mock-ui-container">
+                        <div class="mock-upload-area card">
+                            <div class="mock-upload-placeholder">
+                                📸 TikTok screenshot
+                            </div>
+                        </div>
+                        <div class="card">
+                        <div class="mock-results-grid">
+                            <div class="mock-item-card">
+                                <div class="mock-item-image">Item 1</div>
+                                <div class="mock-item-info">
+                                    Similar top<br>
+                                    <span class="mock-item-price">£24.99</span>
+                                </div>
+                            </div>
+                            <div class="mock-item-card">
+                                <div class="mock-item-image">Item 2</div>
+                                <div class="mock-item-info">
+                                    Similar skirt<br>
+                                    <span class="mock-item-price">£32.00</span>
+                                </div>
+                            </div>
+                            <div class="mock-item-card">
+                                <div class="mock-item-image">Item 3</div>
+                                <div class="mock-item-info">
+                                    Alternative<br>
+                                    <span class="mock-item-price">£18.50</span>
+                                </div>
+                            </div>
+                            <div class="mock-item-card">
+                                <div class="mock-item-image">Item 4</div>
+                                <div class="mock-item-info">
+                                    Similar style<br>
+                                    <span class="mock-item-price">£45.00</span>
+                                </div>
+                            </div>
+                            <div class="mock-item-card">
+                                <div class="mock-item-image">Item 5</div>
+                                <div class="mock-item-info">
+                                    Close match<br>
+                                    <span class="mock-item-price">£29.99</span>
+                                </div>
+                            </div>
+                            <div class="mock-item-card">
+                                <div class="mock-item-image">Item 6</div>
+                                <div class="mock-item-info">
+                                    Similar look<br>
+                                    <span class="mock-item-price">£38.00</span>
+                                </div>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How it works -->
+    <section class="how-it-works">
+        <div class="container">
+            <h2>How it works</h2>
+            <div class="steps-grid">
+                <div class="step-card card">
+                    <div class="step-number">1</div>
+                    <h3>Upload a screenshot</h3>
+                    <div class="step-visual">📱 Screenshot upload mock</div>
+                    <p>Take a screenshot from TikTok or save the outfit photo. Upload it here.</p>
+                </div>
+                <div class="step-card card">
+                    <div class="step-number">2</div>
+                    <h3>We find close matches</h3>
+                    <div class="step-visual">🔍 Search process mock</div>
+                    <p>Our system scans UK retailers and finds similar items, alternatives, and complete looks.</p>
+                </div>
+                <div class="step-card card">
+                    <div class="step-number">3</div>
+                    <h3>Get links sent to your inbox</h3>
+                    <div class="step-visual">📧 Email mock</div>
+                    <p>We email you a curated list with direct links to buy. Usually within 30 minutes.</p>
+                </div>
+            </div>
+            <div class="honesty-line">
+                We find close matches and alternatives — not always exact replicas.
+            </div>
+        </div>
+    </section>
+
+    <!-- Comparison Section -->
+    <section class="comparison">
+        <div class="container">
+            <h2>Why not just use Google Lens?</h2>
+            <div class="comparison-table">
+                <div class="comparison-row comparison-header">
+                    <div class="comparison-cell"></div>
+                    <div class="comparison-cell">Google Lens</div>
+                    <div class="comparison-cell">This</div>
+                </div>
+                <div class="comparison-row">
+                    <div class="comparison-cell"><strong>Finds similar outfits</strong></div>
+                    <div class="comparison-cell cross">✗</div>
+                    <div class="comparison-cell check">✓</div>
+                </div>
+                <div class="comparison-row">
+                    <div class="comparison-cell"><strong>Suggests full look</strong></div>
+                    <div class="comparison-cell cross">✗</div>
+                    <div class="comparison-cell check">✓</div>
+                </div>
+                <div class="comparison-row">
+                    <div class="comparison-cell"><strong>Filters by budget</strong></div>
+                    <div class="comparison-cell cross">✗</div>
+                    <div class="comparison-cell check">✓</div>
+                </div>
+                <div class="comparison-row">
+                    <div class="comparison-cell"><strong>Saves time scrolling</strong></div>
+                    <div class="comparison-cell cross">✗</div>
+                    <div class="comparison-cell check">✓</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Social Proof -->
+    <section class="social-proof">
+        <div class="container">
+            <h2>What shoppers are saying</h2>
+            <div class="testimonials-grid">
+                <div class="testimonial-card card">
+                    <div class="testimonial-avatar">SM</div>
+                    <p class="testimonial-quote">"Found a cheaper alternative to a £120 dress I saw on TikTok. Saved me hours of searching."</p>
+                    <div class="testimonial-author">
+                        <strong>Sarah Mitchell</strong>, 24, Manchester
+                    </div>
+                </div>
+                <div class="testimonial-card card">
+                    <div class="testimonial-avatar">JK</div>
+                    <p class="testimonial-quote">"Got results in 20 minutes. The links actually worked and I found everything I needed."</p>
+                    <div class="testimonial-author">
+                        <strong>James Kelly</strong>, 28, London
+                    </div>
+                </div>
+                <div class="testimonial-card card">
+                    <div class="testimonial-avatar">EC</div>
+                    <p class="testimonial-quote">"Didn't find the exact item but got three alternatives that looked better. Worth it."</p>
+                    <div class="testimonial-author">
+                        <strong>Emma Clarke</strong>, 31, Birmingham
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Objections -->
+    <section class="objections">
+        <div class="container">
+            <h2>Common questions</h2>
+            <div class="objections-list">
+                <div class="objection-item">
+                    <div class="objection-question">Will it find the exact item?</div>
+                    <div class="objection-answer">Sometimes, yes. More often, we find close matches and alternatives that give you the same look. We're honest about this — you'll see similar items, not always exact replicas.</div>
+                </div>
+                <div class="objection-item">
+                    <div class="objection-question">Is this free?</div>
+                    <div class="objection-answer">Yes. Upload your photo and get matches emailed to you. No charge, no catch.</div>
+                </div>
+                <div class="objection-item">
+                    <div class="objection-question">How long does it take?</div>
+                    <div class="objection-answer">Most people get results within 30 minutes. Sometimes faster, sometimes a bit longer if we're busy.</div>
+                </div>
+                <div class="objection-item">
+                    <div class="objection-question">Do you store my photos?</div>
+                    <div class="objection-answer">We use your photo to find matches, then delete it. We don't keep your images or share them.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Upload Form Section -->
+    <section class="upload-form-section" id="upload-form">
+        <div class="container">
+            <h2>Ready to find your match?</h2>
+            <p style="text-align: center; margin-bottom: 40px; font-size: 20px;">Upload a screenshot and we'll send similar items to your inbox.</p>
+            
+            <div class="form-container">
+                <div class="upload-box card">
+                    <div class="upload-icon">📸</div>
+                    <div class="upload-text">Drop your TikTok screenshot here</div>
+                    <div class="upload-hint">or click to browse</div>
+                </div>
+                
+                <form>
+                    <div class="form-group">
+                        <label for="email">Your email</label>
+                        <input type="email" id="email" name="email" placeholder="you@example.com" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="budget">Budget (optional)</label>
+                        <select id="budget" name="budget">
+                            <option value="">No preference</option>
+                            <option value="50">Under £50</option>
+                            <option value="100">Under £100</option>
+                            <option value="150">£150+</option>
+                        </select>
+                    </div>
+                    
+                    <button type="submit" class="form-submit">Send my matches</button>
+                    <p class="form-note">We'll email your results within 30 minutes.</p>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Final CTA -->
+    <section class="final-cta">
+        <div class="container">
+            <h2>Stop searching. Start finding.</h2>
+            <p>Upload your TikTok screenshot and get similar outfits delivered to your inbox.</p>
+            <a href="#upload-form" class="cta-primary">Upload photo & get matches</a>
+        </div>
+    </section>
+
+    <script>
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+
+        // Form submission handler
+        document.querySelector('form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const email = document.getElementById('email').value;
+            const budget = document.getElementById('budget').value;
+            
+            // In a real implementation, this would send to your backend
+            alert('Thanks! We\'ll email your matches soon.');
+            
+            // Reset form
+            this.reset();
+        });
+    </script>
+</body>
+</html>
