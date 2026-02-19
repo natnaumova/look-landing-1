@@ -3,190 +3,71 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LookGenie · Beta Waitlist — Find close matches from any outfit screenshot</title>
+    <title>LookGenie · Beta — Find close outfit matches from any screenshot</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body class="bg-grid">
 
-    <!-- Hero Section -->
+    <!-- Hero -->
     <section class="hero">
-        <div class="container">
-            <div class="hero-content">
-                <div class="hero-text">
-                    <span class="hero-beta-badge proof-badge"><span class="proof-badge-dot" aria-hidden="true"></span>BETA · UK · invites in small batches</span>
-                    <h1>Find close matches from any outfit screenshot.</h1>
-                    <p class="hero-subheadline">We're building LookGenie for TikTok and Instagram shoppers. Join the beta waitlist — first invites go out this week.</p>
-                    <a href="#waitlist-form" class="cta-primary btn-primary cta-glow-border">Get beta access</a>
-                    <span class="cta-microcopy">Early access to the first working version. Unsubscribe anytime.</span>
+        <div class="container hero-container">
+            <div class="hero-text">
+                <div class="hero-headline-wrap">
+                    <span class="hero-sticker hero-sticker-1">Beta access</span>
+                    <span class="hero-sticker hero-sticker-2">UK first</span>
+                    <span class="hero-sticker hero-sticker-3">Screenshot-based</span>
+                    <h1 class="hero-headline"><span class="hero-headline-main">Seen a look<br>you love?</span></h1>
+                    <p class="hero-headline-second">Get the whole outfit — not just similar items.</p>
                 </div>
-                <div class="hero-collage">
-                    <div class="hero-collage-glow" aria-hidden="true"></div>
-                    <div class="hero-tile hero-tile-screenshot">Screenshot</div>
-                    <div class="hero-tile hero-tile-jacket">
-                        <span class="tile-label">Jacket</span>
-                        <span class="tile-value">£89</span>
-                    </div>
-                    <div class="hero-tile hero-tile-shoes">
-                        <span class="tile-label">Shoes</span>
-                        <span class="tile-value">£45</span>
-                    </div>
-                    <div class="hero-tile hero-tile-budget">
-                        <span class="tile-label">Budget</span>
-                        <span class="tile-value">Under £100</span>
+                <a href="#waitlist-form" class="hero-cta">Get beta access</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Product visual: one mock screen -->
+    <section class="product-visual section-light reveal">
+        <div class="container">
+            <div class="mock-screen">
+                <div class="mock-screen-inner">
+                    <div class="mock-screenshot-area">Screenshot</div>
+                    <div class="mock-arrow" aria-hidden="true">→</div>
+                    <div class="mock-results-row">
+                        <div class="mock-result-item"><span class="mock-result-placeholder"></span><span class="mock-result-price">£24</span></div>
+                        <div class="mock-result-item"><span class="mock-result-placeholder"></span><span class="mock-result-price">£32</span></div>
+                        <div class="mock-result-item"><span class="mock-result-placeholder"></span><span class="mock-result-price">£45</span></div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- How it works visually -->
-    <section class="visual-explanation section-dark" id="visual-explanation">
+    <!-- What you get: 3 bullets, no cards -->
+    <section class="what-you-get section-dark reveal">
         <div class="container">
-            <h2>How it works visually</h2>
-            <div class="visual-explanation-grid">
-                <div class="visual-col">
-                    <div class="screenshot-block">
-                        <div class="bbox bbox-jacket">Jacket</div>
-                        <div class="bbox bbox-top">Top</div>
-                        <div class="bbox bbox-shoes">Shoes</div>
-                        <div class="bbox bbox-bag">Bag</div>
-                    </div>
-                    <p class="visual-caption">Upload any outfit screenshot</p>
-                </div>
-                <div class="visual-col">
-                    <div class="modular-tiles">
-                        <div class="modular-tile"><span class="modular-icon">🧥</span><span class="modular-label">Jacket</span></div>
-                        <div class="modular-tile"><span class="modular-icon">👕</span><span class="modular-label">Top</span></div>
-                        <div class="modular-tile"><span class="modular-icon">👟</span><span class="modular-label">Shoes</span></div>
-                        <div class="modular-tile"><span class="modular-icon">👜</span><span class="modular-label">Bag</span></div>
-                    </div>
-                    <p class="visual-caption">We break the outfit into individual pieces</p>
-                </div>
-                <div class="visual-col">
-                    <div class="mini-cards-grid">
-                        <div class="mini-card"><div class="mini-card-image"></div><span class="mini-card-price">£24</span><span class="mini-card-badge">UK retailer</span></div>
-                        <div class="mini-card"><div class="mini-card-image"></div><span class="mini-card-price">£32</span><span class="mini-card-badge">UK retailer</span></div>
-                        <div class="mini-card"><div class="mini-card-image"></div><span class="mini-card-price">£18</span><span class="mini-card-badge">UK retailer</span></div>
-                        <div class="mini-card"><div class="mini-card-image"></div><span class="mini-card-price">£45</span><span class="mini-card-badge">UK retailer</span></div>
-                        <div class="mini-card"><div class="mini-card-image"></div><span class="mini-card-price">£29</span><span class="mini-card-badge">UK retailer</span></div>
-                        <div class="mini-card"><div class="mini-card-image"></div><span class="mini-card-price">£38</span><span class="mini-card-badge">UK retailer</span></div>
-                    </div>
-                    <p class="visual-caption">You get curated matches within your budget</p>
-                </div>
-            </div>
+            <h2 class="what-you-get-title">In beta you'll get:</h2>
+            <ul class="what-you-get-list">
+                <li>Early access to the first working version</li>
+                <li>Screenshot-based outfit matching</li>
+                <li>Budget-aware recommendations (UK retailers first)</li>
+            </ul>
         </div>
     </section>
 
-    <!-- What you'll get in beta -->
-    <section class="how-it-works section-light reveal">
+    <!-- Alpha quote -->
+    <section class="alpha-quote section-light reveal">
         <div class="container">
-            <h2>What you'll get in beta</h2>
-            <div class="steps-grid">
-                <div class="step-card card">
-                    <div class="step-number">1</div>
-                    <h3>Early access to the first version</h3>
-                    <div class="step-visual">🚀 Early access</div>
-                    <p>Be among the first to try LookGenie when we open access.</p>
-                </div>
-                <div class="step-card card">
-                    <div class="step-number">2</div>
-                    <h3>Screenshot-based matching</h3>
-                    <div class="step-visual">📸 Match suggestions</div>
-                    <p>Upload a screenshot and receive curated match suggestions.</p>
-                </div>
-                <div class="step-card card">
-                    <div class="step-number">3</div>
-                    <h3>Budget & retailer preferences</h3>
-                    <div class="step-visual">🇬🇧 UK brands</div>
-                    <p>Set your budget and preferred UK brands.</p>
-                </div>
-            </div>
+            <blockquote class="alpha-quote-block">
+                <p>"I'd use this instead of scrolling for hours."</p>
+                <footer>— Alpha tester, London</footer>
+            </blockquote>
         </div>
     </section>
 
-    <!-- Comparison Section -->
-    <section class="comparison section-dark reveal">
+    <!-- Final CTA: waitlist form -->
+    <section class="final-cta-section section-dark reveal" id="waitlist-form">
         <div class="container">
-            <h2>Why not just use Google Lens?</h2>
-            <div class="comparison-editorial">
-                <div class="comparison-col">
-                    <h3>Google Lens</h3>
-                    <ul class="comparison-list">
-                        <li><span class="cross">✗</span> Finds similar outfits</li>
-                        <li><span class="cross">✗</span> Suggests complete looks</li>
-                        <li><span class="cross">✗</span> Filters by budget</li>
-                        <li><span class="cross">✗</span> Saves time scrolling</li>
-                    </ul>
-                </div>
-                <div class="comparison-col">
-                    <h3>LookGenie</h3>
-                    <ul class="comparison-list">
-                        <li><span class="check">✓</span> Finds similar outfits</li>
-                        <li><span class="check">✓</span> Will suggest complete looks</li>
-                        <li><span class="check">✓</span> Filters by budget</li>
-                        <li><span class="check">✓</span> Saves time scrolling</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- How the beta works -->
-    <section class="how-it-works section-light how-beta-works reveal">
-        <div class="container">
-            <h2>How the beta works</h2>
-            <div class="steps-grid">
-                <div class="step-card card">
-                    <div class="step-number">1</div>
-                    <h3>Invites in small batches</h3>
-                    <p>We're letting people in gradually to keep quality high. First invites go out this week.</p>
-                </div>
-                <div class="step-card card">
-                    <div class="step-number">2</div>
-                    <h3>UK-focused matches</h3>
-                    <p>We're starting with UK retailers and brands to keep results relevant.</p>
-                </div>
-                <div class="step-card card">
-                    <div class="step-number">3</div>
-                    <h3>Your data stays private</h3>
-                    <p>We only use your email to send access. If you optionally upload a screenshot later, you can request deletion anytime.</p>
-                </div>
-            </div>
-            <p class="how-beta-note">Pre-launch: you're joining a waitlist, not using the full product yet.</p>
-        </div>
-    </section>
-
-    <!-- Objections -->
-    <section class="objections section-dark reveal">
-        <div class="container">
-            <h2>Common questions</h2>
-            <div class="objections-list">
-                <div class="objection-item">
-                    <div class="objection-question">Will it find the exact item?</div>
-                    <div class="objection-answer">Sometimes, yes. More often, LookGenie will find close matches and alternatives that give you the same look. Similar items, not always exact replicas.</div>
-                </div>
-                <div class="objection-item">
-                    <div class="objection-question">Is this free?</div>
-                    <div class="objection-answer">Yes. Beta access is free. No charge, no catch.</div>
-                </div>
-                <div class="objection-item">
-                    <div class="objection-question">When do I get access?</div>
-                    <div class="objection-answer">We're sending invites in small batches. You'll get an email when it's your turn.</div>
-                </div>
-                <div class="objection-item">
-                    <div class="objection-question">Do you store my photos?</div>
-                    <div class="objection-answer">When you use LookGenie, we use your photo to find matches, then delete it. We don't keep your images or share them.</div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Waitlist Section -->
-    <section class="upload-form-section section-dark reveal" id="waitlist-form">
-        <div class="container">
-            <h2>Join the beta waitlist</h2>
-            <p>Get early access when we open. First invites go out this week.</p>
-            
+            <h2 class="final-cta-heading">Get beta access</h2>
+            <p class="final-cta-microcopy">Invites sent in small batches.</p>
             <div class="form-container">
                 <div id="waitlist-form-wrap">
                     <form id="waitlist-form-el">
@@ -194,7 +75,6 @@
                             <label for="email">Email</label>
                             <input type="email" id="email" name="email" placeholder="you@example.com" required>
                         </div>
-                        
                         <div class="form-group">
                             <label for="where-seen">Where did you see the outfit? (optional)</label>
                             <select id="where-seen" name="where_seen">
@@ -205,40 +85,21 @@
                                 <option value="other">Other</option>
                             </select>
                         </div>
-                        
                         <button type="submit" class="form-submit">Join beta waitlist</button>
-                        <p class="form-note">We'll email you when access opens.</p>
                     </form>
                 </div>
-                
                 <div id="thank-you-state" class="thank-you-state" style="display: none;">
-                    <p class="thank-you-message">You're on the list.<br>We're sending invites in small batches.<br>Want early priority? Upload a screenshot now.</p>
-                    <div class="upload-box card optional-upload">
-                        <div class="upload-icon">📸</div>
-                        <div class="upload-text">Drop a screenshot or photo here (optional)</div>
-                        <div class="upload-hint">or click to browse</div>
-                    </div>
+                    <p class="thank-you-message">You're on the list. We're sending invites in small batches.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Final CTA -->
-    <section class="final-cta section-light reveal">
-        <div class="container">
-            <h2>Get early access</h2>
-            <p>Join the waitlist and be among the first to try LookGenie.</p>
-            <a href="#waitlist-form" class="cta-primary">Get beta access</a>
-        </div>
-    </section>
-
     <script>
-        // Hero: add .is-loaded after DOM ready to trigger tile stagger + float (CSS-driven)
         document.addEventListener('DOMContentLoaded', function() {
             document.body.classList.add('is-loaded');
         });
 
-        // IntersectionObserver: add .is-visible for scroll reveal (What you'll get in beta, etc.)
         (function() {
             var observer = new IntersectionObserver(function(entries) {
                 entries.forEach(function(entry) {
@@ -248,16 +109,9 @@
                     }
                 });
             }, { rootMargin: '0px 0px -10% 0px', threshold: 0 });
-
             document.querySelectorAll('.reveal').forEach(function(el) { observer.observe(el); });
-
-            var visualSection = document.getElementById('visual-explanation');
-            if (visualSection) {
-                observer.observe(visualSection);
-            }
         })();
 
-        // Smooth scroll for anchor links
         document.querySelectorAll('a[href^="#"]').forEach(function(anchor) {
             anchor.addEventListener('click', function(e) {
                 e.preventDefault();
@@ -266,7 +120,6 @@
             });
         });
 
-        // Waitlist form: thank-you state
         document.getElementById('waitlist-form-el').addEventListener('submit', function(e) {
             e.preventDefault();
             document.getElementById('waitlist-form-wrap').style.display = 'none';
