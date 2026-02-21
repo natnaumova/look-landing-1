@@ -9,12 +9,12 @@
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
 </head>
-<body class="bg-grid">
+<body class="is-loaded">
 
     <!-- Hero -->
     <section class="hero">
         <header class="site-header">
-            <span class="site-logo">look•detective</span>
+            <img src="/images/logo.png" alt="Look Detective" class="site-logo">
         </header>
         <div class="container hero-container">
             <div class="pill-wrapper">
@@ -25,6 +25,7 @@
             <h1 class="hero-headline"><span class="hero-headline-main">Get the look<br>you love</span></h1>
             <p class="hero-headline-second">Upload a screenshot and get shoppable links to similar pieces in 30 seconds.</p>
             <a href="#waitlist-form" class="hero-cta">Get beta access</a>
+            <p class="hero-cta-micro">Early access. Limited spots. No spam.</p>
         </div>
     </section>
 
@@ -49,57 +50,136 @@
         </div>
     </section>
 
-    <!-- What you get: 3 bullets, no cards -->
+    <!-- Outcome-focused: recreate influencer look, stay in budget -->
     <section class="what-you-get section-dark reveal">
         <div class="container">
-            <h2 class="what-you-get-title">In beta you'll get:</h2>
+            <h2 class="what-you-get-title">Recreate the influencer look — without overspending</h2>
+            <p class="what-you-get-subline">Upload a screenshot and get a complete, coordinated outfit that fits your budget.</p>
             <ul class="what-you-get-list">
-                <li>Early access to the first working version</li>
-                <li>Screenshot-based outfit matching</li>
-                <li>Budget-aware recommendations (UK retailers first)</li>
+                <li>Full head-to-toe outfit from one screenshot</li>
+                <li>Pieces that match the vibe — not random similar items</li>
+                <li>Set a total budget and get options that fit it</li>
+                <li>Save complete looks in one place</li>
             </ul>
+        </div>
+    </section>
+
+    <!-- Comparison: visual search vs Look Detective -->
+    <section class="comparison-section section-light reveal">
+        <div class="container">
+            <h2 class="comparison-headline">Tried visual search and still couldn't recreate the outfit?</h2>
+            <p class="comparison-subline">Finding one similar item isn't the same as rebuilding the full look.</p>
+
+            <!-- Mobile only: VS comparison card -->
+            <div class="comparison-vs-mobile">
+                <div class="comparison-vs-card">
+                    <div class="comparison-vs-badge" aria-hidden="true">VS</div>
+                    <div class="comparison-vs-column comparison-vs-left">
+                        <div class="comparison-vs-col-label">Visual search</div>
+                        <div class="comparison-vs-row">
+                            <span class="comparison-vs-row-label">Outcome</span>
+                            <span class="comparison-vs-item"><span class="comparison-vs-icon comparison-vs-icon-x" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2 2l10 10M12 2L2 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span>1 similar item</span>
+                        </div>
+                        <div class="comparison-vs-row">
+                            <span class="comparison-vs-row-label">Time</span>
+                            <span class="comparison-vs-item"><span class="comparison-vs-icon comparison-vs-icon-x" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2 2l10 10M12 2L2 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span>Endless scrolling</span>
+                        </div>
+                        <div class="comparison-vs-row">
+                            <span class="comparison-vs-row-label">Budget control</span>
+                            <span class="comparison-vs-item"><span class="comparison-vs-icon comparison-vs-icon-x" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2 2l10 10M12 2L2 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span>No budget cap</span>
+                        </div>
+                    </div>
+                    <div class="comparison-vs-column comparison-vs-right">
+                        <div class="comparison-vs-col-label">Look Detective</div>
+                        <div class="comparison-vs-row">
+                            <span class="comparison-vs-row-label">Outcome</span>
+                            <span class="comparison-vs-item comparison-vs-value-right"><span class="comparison-vs-icon comparison-vs-icon-check" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2 7l3.5 3.5L12 3" stroke="#3BD43D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Full outfit</span>
+                        </div>
+                        <div class="comparison-vs-row">
+                            <span class="comparison-vs-row-label">Time</span>
+                            <span class="comparison-vs-item comparison-vs-value-right"><span class="comparison-vs-icon comparison-vs-icon-check" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2 7l3.5 3.5L12 3" stroke="#3BD43D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Under 30 seconds</span>
+                        </div>
+                        <div class="comparison-vs-row">
+                            <span class="comparison-vs-row-label">Budget control</span>
+                            <span class="comparison-vs-item comparison-vs-value-right"><span class="comparison-vs-icon comparison-vs-icon-check" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2 7l3.5 3.5L12 3" stroke="#3BD43D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Budget cap built-in</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="comparison-table-wrap">
+                <table class="comparison-table">
+                    <thead>
+                        <tr>
+                            <th>What you want</th>
+                            <th>What usually happens</th>
+                            <th>Look Detective</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td data-label="What you want">Full outfit</td>
+                            <td data-label="What usually happens">You find one similar piece</td>
+                            <td data-label="Look Detective"><strong>Rebuilds head-to-toe</strong></td>
+                        </tr>
+                        <tr>
+                            <td data-label="What you want">Stay under a budget</td>
+                            <td data-label="What usually happens">Endless scrolling</td>
+                            <td data-label="Look Detective"><strong>Budget cap + curated options</strong></td>
+                        </tr>
+                        <tr>
+                            <td data-label="What you want">Same vibe</td>
+                            <td data-label="What usually happens">Mismatched items</td>
+                            <td data-label="Look Detective"><strong>Cohesive look suggestions</strong></td>
+                        </tr>
+                        <tr>
+                            <td data-label="What you want">Save it</td>
+                            <td data-label="What usually happens">Tabs everywhere</td>
+                            <td data-label="Look Detective"><strong>Save complete looks</strong></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </section>
 
     <!-- Alpha quote -->
     <section class="alpha-quote section-light reveal">
         <div class="container">
-            <blockquote class="alpha-quote-block">
-                <p>"I'd use this instead of scrolling for hours."</p>
-                <footer>— Alpha tester, London</footer>
-            </blockquote>
+            <div class="testimonial">
+                <div class="testimonial-meta">
+                    <img src="/images/tester-emily.jpg" alt="Emily K." class="testimonial-avatar" width="52" height="52">
+                    <div class="testimonial-attribution">
+                        <cite class="testimonial-name">Emily K.</cite>
+                        <span class="testimonial-role">Alpha tester • London</span>
+                    </div>
+                </div>
+                <blockquote class="testimonial-bubble">
+                    <p>"I screenshotted her outfit from Instagram, set £150 as my limit, and rebuilt the full look in minutes."</p>
+                </blockquote>
+            </div>
         </div>
     </section>
 
-    <!-- Final CTA: waitlist form -->
-    <section class="final-cta-section section-dark reveal" id="waitlist-form">
-        <div class="container">
-            <h2 class="final-cta-heading">Get beta access</h2>
-            <p class="final-cta-microcopy">Invites sent in small batches.</p>
-            <div class="form-container">
+    <!-- Final CTA: "Ready to rebuild?" + waitlist form only -->
+    <section class="final-cta-modern reveal" id="waitlist-form">
+        <div class="container final-cta-modern-inner">
+            <h2 class="final-cta-modern-headline">Ready to build your next look?</h2>
+            <p class="final-cta-modern-body">Join the waitlist to get early access.</p>
+            <div class="form-container final-cta-modern-form">
                 <div id="waitlist-form-wrap">
                     <form id="waitlist-form-el">
                         <div class="form-group">
-                            <label for="email">Email</label>
-                            <input type="email" id="email" name="email" placeholder="you@example.com" required>
+                            <input type="email" id="waitlist-email" name="email" placeholder="you@example.com" required>
                         </div>
-                        <div class="form-group">
-                            <label for="where-seen">Where did you see the outfit? (optional)</label>
-                            <select id="where-seen" name="where_seen">
-                                <option value="">—</option>
-                                <option value="tiktok">TikTok</option>
-                                <option value="instagram">Instagram</option>
-                                <option value="pinterest">Pinterest</option>
-                                <option value="other">Other</option>
-                            </select>
-                        </div>
-                        <button type="submit" class="form-submit">Join beta waitlist</button>
+                        <button type="submit" class="form-submit final-cta-submit cta-animated">Get beta access</button>
                     </form>
                 </div>
                 <div id="thank-you-state" class="thank-you-state" style="display: none;">
                     <p class="thank-you-message">You're on the list. We're sending invites in small batches.</p>
                 </div>
             </div>
+            <p class="final-cta-modern-micro">Early access. Limited spots. No spam.</p>
         </div>
     </section>
 
@@ -123,8 +203,17 @@
         document.querySelectorAll('a[href^="#"]').forEach(function(anchor) {
             anchor.addEventListener('click', function(e) {
                 e.preventDefault();
-                var target = document.querySelector(this.getAttribute('href'));
-                if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                var href = this.getAttribute('href');
+                var target = document.querySelector(href);
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    if (href === '#waitlist-form') {
+                        setTimeout(function() {
+                            var emailEl = document.getElementById('waitlist-email');
+                            if (emailEl) emailEl.focus();
+                        }, 400);
+                    }
+                }
             });
         });
 
