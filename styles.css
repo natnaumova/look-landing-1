@@ -32,11 +32,6 @@ body {
   padding-right: 48px;
 }
 
-.bg-grid {
-  background-color: var(--bg-dark);
-  color: var(--text-light);
-}
-
 @media (max-width: 1024px) {
   body {
     padding-left: 24px;
@@ -150,7 +145,6 @@ p {
   transition: opacity 0.7s ease, transform 0.7s ease;
 }
 
-.reveal.in-view,
 .reveal.is-visible {
   opacity: 1;
   transform: translateY(0);
@@ -301,6 +295,9 @@ p {
     linear-gradient(#000 0 0) content-box,
     linear-gradient(#000 0 0);
   -webkit-mask-composite: xor;
+  mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
   mask-composite: exclude;
   pointer-events: none;
   filter: drop-shadow(0 0 6px #3BD43D) drop-shadow(0 0 14px rgba(59, 212, 61, 0.5));
@@ -430,11 +427,67 @@ p {
   display: block;
 }
 
-.mock-arrow {
+.mock-upload-label {
+  font-size: 13px;
+  font-weight: 500;
+  color: rgba(14, 15, 18, 0.5);
   text-align: center;
-  font-size: 24px;
-  color: var(--accent);
-  opacity: 0.7;
+  margin: 0;
+}
+
+.mock-arrow-wrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+}
+
+.mock-arrow-svg {
+  width: 30px;
+  height: 30px;
+  color: var(--text-dark);
+}
+
+.mock-budget-strip {
+  max-width: 360px;
+  margin: 0 auto 32px auto;
+  padding: 14px 20px;
+  background: #ffffff;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.mock-budget-cap {
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--text-dark);
+}
+
+.mock-budget-total {
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--text-dark);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.mock-budget-check {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mock-results-label {
+  font-size: 13px;
+  font-weight: 500;
+  color: rgba(14, 15, 18, 0.5);
+  text-align: center;
+  margin: 0 0 8px 0;
 }
 
 .mock-results-row {
@@ -453,6 +506,20 @@ p {
   aspect-ratio: 3/4;
   background: rgba(0, 0, 0, 0.05);
   border-radius: 12px;
+  display: block;
+}
+
+.mock-result-placeholder-img {
+  overflow: hidden;
+  padding: 0;
+}
+
+.mock-result-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  border-radius: 12px;
 }
 
 .mock-result-price {
@@ -465,7 +532,7 @@ p {
 .what-you-get {
   margin-top: 120px;
   margin-bottom: 80px;
-  padding: 40px 24px;
+  padding: 140px 48px;
   position: relative;
   z-index: 2;
   background: var(--bg-dark);
@@ -487,35 +554,53 @@ p {
   line-height: 1.6;
   color: rgba(240, 238, 234, 0.9);
   max-width: 60ch;
-  margin: 0 auto 48px auto;
+  margin: 0 auto 56px auto;
   text-align: center;
 }
 
-.what-you-get-list {
-  list-style: none;
-  max-width: 56ch;
-  margin: 0 auto;
+.what-you-get-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 64px;
   text-align: left;
 }
 
-.what-you-get-list li {
-  font-size: 20px;
-  line-height: 1.5;
-  color: rgba(240, 238, 234, 0.9);
-  padding: 18px 0;
-  padding-left: 36px;
-  position: relative;
+.what-you-get-card {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
 }
 
-.what-you-get-list li::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 26px;
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: #3BD43D;
+.what-you-get-icon {
+  flex-shrink: 0;
+  line-height: 0;
+}
+
+.what-you-get-icon svg {
+  width: 26px;
+  height: 26px;
+  display: block;
+}
+
+.what-you-get-card-content {
+  min-width: 0;
+}
+
+.what-you-get-card-headline {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--text-light);
+  margin: 0 0 10px 0;
+  letter-spacing: -0.02em;
+}
+
+.what-you-get-card-body {
+  font-size: 16px;
+  line-height: 1.55;
+  color: var(--text-light);
+  opacity: 0.85;
+  margin: 0;
+  max-width: 32ch;
 }
 
 /* ----- Comparison: visual search vs Look Detective ----- */
@@ -589,35 +674,6 @@ p {
   color: var(--text-dark);
 }
 
-.comparison-cta-wrap {
-  text-align: center;
-}
-
-.comparison-cta {
-  display: inline-block;
-  background: var(--bg-dark);
-  color: var(--text-light);
-  padding: 18px 36px;
-  border-radius: 16px;
-  font-size: 17px;
-  font-weight: 600;
-  text-decoration: none;
-  border: none;
-  cursor: pointer;
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
-}
-
-.comparison-cta:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 32px rgba(14, 15, 18, 0.25);
-}
-
-.comparison-cta-micro {
-  margin-top: 12px;
-  font-size: 14px;
-  color: rgba(14, 15, 18, 0.6);
-}
-
 /* ----- Testimonial (speech bubble + avatar) ----- */
 .alpha-quote {
   padding: 0 24px;
@@ -641,8 +697,8 @@ p {
 }
 
 .testimonial-avatar {
-  width: 52px;
-  height: 52px;
+  width: 72px;
+  height: 72px;
   border-radius: 50%;
   object-fit: cover;
   display: block;
@@ -651,6 +707,7 @@ p {
 
 .testimonial-attribution {
   text-align: left;
+  line-height: 1.25;
 }
 
 .testimonial-name {
@@ -659,12 +716,14 @@ p {
   font-weight: 600;
   color: var(--text-dark);
   font-style: normal;
-  margin-bottom: 2px;
+  margin-bottom: 0;
+  line-height: 1.2;
 }
 
 .testimonial-role {
   font-size: 14px;
   color: rgba(14, 15, 18, 0.6);
+  line-height: 1.2;
 }
 
 .testimonial-bubble {
@@ -758,6 +817,9 @@ p {
     linear-gradient(#000 0 0) content-box,
     linear-gradient(#000 0 0);
   -webkit-mask-composite: xor;
+  mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
   mask-composite: exclude;
   pointer-events: none;
   z-index: -1;
@@ -834,12 +896,6 @@ p {
   outline-offset: 3px;
 }
 
-/* Legacy (kept for any refs) */
-.final-cta-section .form-container {
-  max-width: 420px;
-  margin: 0 auto;
-}
-
 .form-group { margin-bottom: 24px; }
 
 .form-group label {
@@ -902,22 +958,18 @@ p {
 @media (max-width: 768px) {
   .mock-results-row { grid-template-columns: 1fr; }
   .what-you-get {
-    padding: 40px 24px;
+    padding: 96px 24px;
   }
   .what-you-get-title {
     margin-bottom: 16px;
   }
   .what-you-get-subline {
     font-size: 17px;
-    margin-bottom: 40px;
+    margin-bottom: 48px;
   }
-  .what-you-get-list li {
-    font-size: 19px;
-    padding: 16px 0;
-    padding-left: 28px;
-  }
-  .what-you-get-list li::before {
-    top: 22px;
+  .what-you-get-cards {
+    grid-template-columns: 1fr;
+    gap: 40px;
   }
 
   .comparison-headline { max-width: none; }
@@ -1041,10 +1093,6 @@ p {
     color: #3BD43D;
   }
 
-  .comparison-cta-wrap {
-    margin-top: 0;
-  }
-
   .final-cta-modern {
     padding: 72px 24px;
   }
@@ -1060,8 +1108,8 @@ p {
     padding: 0 24px;
   }
   .testimonial-avatar {
-    width: 44px;
-    height: 44px;
+    width: 60px;
+    height: 60px;
   }
   .testimonial-bubble {
     padding: 22px 20px 26px;
