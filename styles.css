@@ -34,6 +34,7 @@ body {
   background-color: var(--bg-light);
   padding-left: 48px;
   padding-right: 48px;
+  overflow-x: hidden;
 }
 
 @media (max-width: 1024px) {
@@ -960,6 +961,43 @@ p {
   margin-bottom: 0;
 }
 
+/* ----- Footer ----- */
+.site-footer {
+  background: #0E0F12;
+  color: rgba(255, 255, 255, 0.7);
+  padding: 20px 0;
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.site-footer .container {
+  padding: 0;
+  max-width: none;
+}
+
+.site-footer-text {
+  margin: 0;
+  font-size: 14px;
+  text-align: center;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+@media (max-width: 768px) {
+  .site-footer {
+    width: calc(100% + 48px);
+    margin-left: -24px;
+    padding: 20px 24px;
+    box-sizing: border-box;
+  }
+  .site-footer .container {
+    padding: 0 8px;
+  }
+}
+
 /* ----- Beta modal ----- */
 body.modal-open {
   overflow: hidden;
@@ -1046,6 +1084,10 @@ body.modal-open {
   text-align: center;
 }
 
+.hidden-field {
+  display: none;
+}
+
 .modal-form .form-group {
   margin-bottom: 24px;
 }
@@ -1095,6 +1137,13 @@ body.modal-open {
 .modal-cta:focus-visible {
   outline: 2px solid #3BD43D;
   outline-offset: 3px;
+}
+
+.modal-form-error {
+  margin: 12px 0 0 0;
+  font-size: 14px;
+  color: #c00;
+  text-align: center;
 }
 
 .modal-trust {

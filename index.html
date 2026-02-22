@@ -18,8 +18,8 @@
         </header>
         <div class="container hero-container">
             <div class="pill-wrapper">
-                <span class="hero-sticker hero-sticker-uk">Find the full outfit</span>
-                <span class="hero-sticker hero-sticker-beta">Set a budget cap</span>
+                <span class="hero-sticker hero-sticker-uk">Set budget cap</span>
+                <span class="hero-sticker hero-sticker-beta">Find full outfit </span>
                 <span class="hero-sticker hero-sticker-screenshot">Save your finds</span>
             </div>
             <h1 class="hero-headline"><span class="hero-headline-main">Get the look<br>you love</span></h1>
@@ -214,6 +214,12 @@
         </div>
     </section>
 
+    <footer class="site-footer">
+        <div class="container">
+            <p class="site-footer-text">Copyright © 2026 Look Detective</p>
+        </div>
+    </footer>
+
     <!-- Beta signup modal (email only) -->
     <div id="beta-modal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="beta-modal-title" aria-hidden="true">
         <div class="modal-backdrop" aria-hidden="true"></div>
@@ -225,10 +231,12 @@
                 <h2 id="beta-modal-title" class="modal-headline">Join the beta</h2>
                 <p class="modal-subline">Be first to rebuild influencer looks without overspending.</p>
                 <form id="beta-modal-form" class="modal-form" novalidate>
+                    <input type="text" name="company" class="hidden-field" id="beta-modal-company" autocomplete="off" tabindex="-1" aria-hidden="true">
                     <div class="form-group">
                         <input type="email" id="beta-modal-email" name="email" placeholder="you@example.com" required aria-label="Email address">
                     </div>
-                    <button type="submit" class="modal-cta cta-animated">Request beta access</button>
+                    <button type="submit" class="modal-cta cta-animated" id="beta-modal-submit">Request beta access</button>
+                    <p class="modal-form-error" id="beta-modal-error" aria-live="polite" hidden>Something went wrong. Please try again.</p>
                 </form>
                 <div class="modal-trust">
                     <p>No spam. Unsubscribe anytime.</p>
@@ -236,7 +244,7 @@
             </div>
             <div class="modal-success" id="beta-modal-success" aria-live="polite" hidden>
                 <h2 class="modal-success-title">You're on the list</h2>
-                <p class="modal-success-message">We'll email you first when the first version is live. Thank you for your trust.</p>
+                <p class="modal-success-message">We'll be in touch soon.</p>
             </div>
         </div>
         <div id="confetti-container" class="confetti-container" aria-hidden="true"></div>
@@ -362,6 +370,10 @@
                     successEl.hidden = true;
                     successEl.style.display = 'none';
                 }
+                var submitBtn = document.getElementById('beta-modal-submit');
+                var errorEl = document.getElementById('beta-modal-error');
+                if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = 'Request beta access'; }
+                if (errorEl) { errorEl.hidden = true; errorEl.style.display = 'none'; }
             }
 
             function runConfetti() {
@@ -391,13 +403,35 @@
                 }, 3500);
             }
 
+            var scriptEndpoint = 'https://script.google.com/macros/s/AKfycbybvg0f_Zld6yBq-rHA_-HKU-komZSTe8TxDUJkT1gm8KRdztqpxy09HSBS4aTgnLYR/exec';
+
             if (form) {
                 form.addEventListener('submit', function(e) {
                     e.preventDefault();
                     var emailInput = document.getElementById('beta-modal-email');
-                    if (emailInput && !emailInput.value.trim()) return;
-                    runConfetti();
-                    showSuccess();
+                    var honeypotInput = document.getElementById('beta-modal-company');
+                    var submitBtn = document.getElementById('beta-modal-submit');
+                    var errorEl = document.getElementById('beta-modal-error');
+                    var emailValue = emailInput ? emailInput.value.trim() : '';
+                    var honeypotValue = honeypotInput ? honeypotInput.value : '';
+                    if (!emailValue) return;
+                    if (errorEl) { errorEl.hidden = true; errorEl.style.display = 'none'; }
+                    if (submitBtn) { submitBtn.disabled = true; submitBtn.textContent = 'Sending…'; }
+                    fetch(scriptEndpoint, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ email: emailValue, company: honeypotValue })
+                    }).then(function(res) {
+                        if (res.ok) {
+                            runConfetti();
+                            showSuccess();
+                        } else {
+                            throw new Error('Not ok');
+                        }
+                    }).catch(function() {
+                        if (errorEl) { errorEl.hidden = false; errorEl.style.display = 'block'; }
+                        if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = 'Request beta access'; }
+                    });
                 });
             }
 
