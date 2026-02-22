@@ -1,5 +1,9 @@
 /* ===== FASHION-TECH: Editorial, premium, minimal ===== */
 
+html {
+  scrollbar-gutter: stable;
+}
+
 :root {
   --bg-dark: #0E0F12;
   --bg-light: #F6F4F1;
@@ -44,13 +48,15 @@ body {
   top: 0;
   left: 0;
   right: 0;
-  text-align: left;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
   padding: 16px 16px;
 }
 
 .site-logo {
   display: block;
-  height: 40px;
+  height: 32px;
   width: auto;
   margin: 0;
   object-fit: contain;
@@ -439,7 +445,7 @@ p {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 0;
+  margin: -12px 0;
 }
 
 .mock-arrow-svg {
@@ -450,7 +456,7 @@ p {
 
 .mock-budget-strip {
   max-width: 360px;
-  margin: 0 auto 32px auto;
+  margin: 0 auto 16px auto;
   padding: 14px 20px;
   background: #ffffff;
   border: 1px solid var(--border);
@@ -487,7 +493,7 @@ p {
   font-weight: 500;
   color: rgba(14, 15, 18, 0.5);
   text-align: center;
-  margin: 0 0 8px 0;
+  margin: -12px 0 8px 0;
 }
 
 .mock-results-row {
@@ -952,6 +958,169 @@ p {
   font-size: 18px;
   color: rgba(240, 238, 234, 0.9);
   margin-bottom: 0;
+}
+
+/* ----- Beta modal ----- */
+body.modal-open {
+  overflow: hidden;
+}
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.25s ease, visibility 0.25s ease;
+}
+
+.modal-overlay.is-open {
+  opacity: 1;
+  visibility: visible;
+}
+
+.modal-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  cursor: pointer;
+}
+
+.modal-box {
+  position: relative;
+  width: 100%;
+  max-width: 480px;
+  max-height: calc(100vh - 48px);
+  overflow-y: auto;
+  background: #fff;
+  border-radius: 24px;
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.18), 0 0 0 1px rgba(0, 0, 0, 0.06);
+  padding: 40px;
+}
+
+.modal-close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  border-radius: 50%;
+  color: var(--text-dark);
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.modal-close:hover {
+  background: rgba(14, 15, 18, 0.06);
+}
+
+.modal-close:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.modal-headline {
+  font-size: clamp(24px, 3vw, 28px);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: var(--text-dark);
+  margin: 0 0 8px 0;
+  padding-right: 36px;
+  text-align: center;
+}
+
+.modal-subline {
+  font-size: 16px;
+  line-height: 1.5;
+  color: rgba(14, 15, 18, 0.8);
+  margin: 0 0 28px 0;
+  text-align: center;
+}
+
+.modal-form .form-group {
+  margin-bottom: 24px;
+}
+
+.modal-form .form-group input[type="email"] {
+  width: 100%;
+  padding: 14px 18px;
+  font-size: 16px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: #fff;
+  color: var(--text-dark);
+  transition: border-color 0.2s ease;
+}
+
+.modal-form .form-group input[type="email"]:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+.modal-form .form-group input[type="email"]::placeholder {
+  color: rgba(14, 15, 18, 0.4);
+}
+
+.modal-cta {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  display: block;
+  background: #0E0F12;
+  color: #fff;
+  padding: 18px 36px;
+  border-radius: 16px;
+  font-size: 17px;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  margin-bottom: 28px;
+}
+
+.modal-cta:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 32px rgba(14, 15, 18, 0.25);
+}
+
+.modal-cta:focus-visible {
+  outline: 2px solid #3BD43D;
+  outline-offset: 3px;
+}
+
+.modal-trust {
+  font-size: 13px;
+  line-height: 1.5;
+  color: rgba(14, 15, 18, 0.65);
+  text-align: center;
+}
+
+.modal-trust p {
+  margin: 0 0 4px 0;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.modal-trust p:last-child {
+  margin-bottom: 0;
+}
+
+@media (max-width: 768px) {
+  .modal-box {
+    padding: 28px 24px;
+  }
+  .modal-headline {
+    padding-right: 28px;
+  }
 }
 
 /* ----- Responsive ----- */

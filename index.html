@@ -14,7 +14,7 @@
     <!-- Hero -->
     <section class="hero">
         <header class="site-header">
-            <img src="images/logo.png" alt="Look Detective" class="site-logo">
+            <img src="images/logo.svg" alt="Look Detective" class="site-logo">
         </header>
         <div class="container hero-container">
             <div class="pill-wrapper">
@@ -24,7 +24,7 @@
             </div>
             <h1 class="hero-headline"><span class="hero-headline-main">Get the look<br>you love</span></h1>
             <p class="hero-headline-second">Upload a screenshot and get shoppable links to similar pieces in 30 seconds.</p>
-            <a href="#waitlist-form" class="hero-cta">Get beta access</a>
+            <a href="#" class="hero-cta js-open-beta-modal" id="hero-cta-modal-trigger" aria-haspopup="dialog" aria-expanded="false">Get beta access</a>
             <p class="hero-cta-micro">Early access. Limited spots. No spam.</p>
         </div>
     </section>
@@ -186,7 +186,7 @@
                     </div>
                 </div>
                 <blockquote class="testimonial-bubble">
-                    <p>"I screenshotted her outfit from Instagram, set £150 as my limit, and rebuilt the full look in minutes."</p>
+                    <p>"I took a screenshot from an IG story, set my budget limit, and it matched the dress, bag and shoes. Way faster than scrolling for hours."</p>
                 </blockquote>
             </div>
         </div>
@@ -214,6 +214,27 @@
         </div>
     </section>
 
+    <!-- Beta signup modal (email only) -->
+    <div id="beta-modal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="beta-modal-title" aria-hidden="true">
+        <div class="modal-backdrop" aria-hidden="true"></div>
+        <div class="modal-box">
+            <button type="button" class="modal-close" aria-label="Close modal" id="beta-modal-close">
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M4 4l12 12M16 4L4 16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+            </button>
+            <h2 id="beta-modal-title" class="modal-headline">Join the beta</h2>
+            <p class="modal-subline">Be first to rebuild influencer looks without overspending.</p>
+            <form id="beta-modal-form" class="modal-form" novalidate>
+                <div class="form-group">
+                    <input type="email" id="beta-modal-email" name="email" placeholder="you@example.com" required aria-label="Email address">
+                </div>
+                <button type="submit" class="modal-cta cta-animated">Request beta access</button>
+            </form>
+            <div class="modal-trust">
+                <p>No spam. Unsubscribe anytime.</p>
+            </div>
+        </div>
+    </div>
+
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             document.body.classList.add('is-loaded');
@@ -232,6 +253,7 @@
 
         document.querySelectorAll('a[href^="#"]').forEach(function(anchor) {
             anchor.addEventListener('click', function(e) {
+                if (anchor.classList.contains('js-open-beta-modal')) return;
                 e.preventDefault();
                 var href = this.getAttribute('href');
                 var target = document.querySelector(href);
@@ -246,6 +268,83 @@
                 }
             });
         });
+
+        (function() {
+            var overlay = document.getElementById('beta-modal');
+            var backdrop = overlay && overlay.querySelector('.modal-backdrop');
+            var closeBtn = document.getElementById('beta-modal-close');
+            var form = document.getElementById('beta-modal-form');
+            var trigger = document.getElementById('hero-cta-modal-trigger');
+            var focusableSelector = 'button:not([disabled]), [href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])';
+
+            function getFocusables() {
+                return overlay ? overlay.querySelectorAll(focusableSelector) : [];
+            }
+
+            function focusTrap(e) {
+                if (e.key !== 'Tab') return;
+                var focusables = getFocusables();
+                if (focusables.length === 0) return;
+                var first = focusables[0];
+                var last = focusables[focusables.length - 1];
+                if (e.shiftKey) {
+                    if (document.activeElement === first) {
+                        e.preventDefault();
+                        last.focus();
+                    }
+                } else {
+                    if (document.activeElement === last) {
+                        e.preventDefault();
+                        first.focus();
+                    }
+                }
+            }
+
+            function openModal() {
+                if (!overlay) return;
+                overlay.classList.add('is-open');
+                overlay.setAttribute('aria-hidden', 'false');
+                document.body.classList.add('modal-open');
+                if (trigger) trigger.setAttribute('aria-expanded', 'true');
+                document.addEventListener('keydown', handleEscape);
+                overlay.addEventListener('keydown', focusTrap);
+                setTimeout(function() {
+                    var emailInput = document.getElementById('beta-modal-email');
+                    if (emailInput) emailInput.focus();
+                }, 50);
+            }
+
+            function closeModal() {
+                if (!overlay) return;
+                overlay.classList.remove('is-open');
+                overlay.setAttribute('aria-hidden', 'true');
+                document.body.classList.remove('modal-open');
+                if (trigger) trigger.setAttribute('aria-expanded', 'false');
+                document.removeEventListener('keydown', handleEscape);
+                overlay.removeEventListener('keydown', focusTrap);
+                if (trigger) trigger.focus();
+            }
+
+            function handleEscape(e) {
+                if (e.key === 'Escape') closeModal();
+            }
+
+            if (trigger) {
+                trigger.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    openModal();
+                });
+            }
+            if (backdrop) backdrop.addEventListener('click', closeModal);
+            if (closeBtn) closeBtn.addEventListener('click', closeModal);
+
+            if (form) {
+                form.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    closeModal();
+                });
+            }
+        })();
 
         document.getElementById('waitlist-form-el').addEventListener('submit', function(e) {
             e.preventDefault();
