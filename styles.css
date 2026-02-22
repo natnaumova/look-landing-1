@@ -256,8 +256,8 @@ p {
 }
 
 .hero-sticker-beta {
-  background: #F5FF3C;
-  color: #0E0F12;
+  background: #3BD43D;
+  color: #fff;
 }
 
 .hero-sticker-screenshot {
@@ -1112,6 +1112,56 @@ body.modal-open {
 
 .modal-trust p:last-child {
   margin-bottom: 0;
+}
+
+.modal-success {
+  display: none;
+  text-align: center;
+  padding: 16px 0 0;
+}
+
+.modal-success-title {
+  font-size: clamp(22px, 3vw, 26px);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: var(--text-dark);
+  margin: 0 0 16px 0;
+}
+
+.modal-success-message {
+  font-size: 16px;
+  line-height: 1.55;
+  color: rgba(14, 15, 18, 0.85);
+  margin: 0;
+}
+
+.confetti-container {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1001;
+  overflow: hidden;
+}
+
+.confetti-piece {
+  position: fixed;
+  border-radius: 2px;
+  margin-left: -6px;
+  margin-top: -6px;
+  animation: confetti-burst 2.8s ease-out forwards;
+  animation-delay: var(--delay, 0s);
+  opacity: 0.95;
+}
+
+@keyframes confetti-burst {
+  0% {
+    transform: translate(-50%, -50%) rotate(0deg);
+    opacity: 0.95;
+  }
+  100% {
+    transform: translate(calc(-50% + var(--tx, 0)), calc(-50% + var(--ty, 200px))) rotate(var(--rot, 360deg));
+    opacity: 0;
+  }
 }
 
 @media (max-width: 768px) {
